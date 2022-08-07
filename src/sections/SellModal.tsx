@@ -139,7 +139,7 @@ const NFTSelection: React.FC<NFTSelectionProps> = ({
             <>
                 <ModalBody>
                     <VStack>
-                        <Text>Showing <b>{balance}</b> compatible ERC721 attribute NFTs to list...</Text>
+                        <Text>Showing <b>{balance}</b> compatible ERC721 Attribute NFTs to list...</Text>
                         <SimpleGrid columns={2} gap='20px' pt='40px'>
                             {tokens.map(token => (
                                 <NFTCard

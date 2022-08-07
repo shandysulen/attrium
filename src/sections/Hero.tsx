@@ -72,7 +72,6 @@ export const Hero: React.FC<StackProps> = (props) => {
             <SlideFade in={showHeading} offsetY='40px' transition={{ enter: { duration: 0.5 } }}>
                 <Heading
                     as='h1'
-                    px={pagePaddingX}
                     fontSize={{ base: '72px', md: '128px' }}
                     pt={`calc(${navBarHeight} + 20px)`}
                 >

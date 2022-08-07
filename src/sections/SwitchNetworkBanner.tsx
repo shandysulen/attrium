@@ -1,9 +1,16 @@
 import { Alert, AlertDescription, AlertIcon, AlertProps, Button, HStack } from '@chakra-ui/react';
 import React, { useCallback } from 'react';
-import { useNetwork, useSwitchNetwork } from 'wagmi';
-import { pagePaddingX } from '../constants';
+import { useAccount, useNetwork, useSwitchNetwork } from 'wagmi';
+import { navBarHeight, pagePaddingX } from '../constants';
 
-export const SwitchNetworkBanner: React.FC<AlertProps> = (props) => {
+export const SwitchNetworkBannerWrapper: React.FC = () => {
+    const { isConnected } = useAccount();
+    const { chain } = useNetwork();
+
+    return isConnected && chain?.id !== 80001 && <SwitchNetworkBanner mt={navBarHeight} />;
+};
+
+const SwitchNetworkBanner: React.FC<AlertProps> = (props) => {
     const { chain } = useNetwork();
     const { switchNetworkAsync } = useSwitchNetwork();
 

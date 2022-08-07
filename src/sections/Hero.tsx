@@ -69,8 +69,15 @@ export const Hero: React.FC<StackProps> = (props) => {
             position='relative'
             {...props}
         >
-            <SlideFade in={showHeading} px={pagePaddingX} offsetY='40px' transition={{ enter: { duration: 0.5 } }}>
-                <Heading as='h1' fontSize={{ base: '72px', md: '128px' }} pt={`calc(${navBarHeight} + 20px)`}>The On-Chain<br />Trait Economy</Heading>
+            <SlideFade in={showHeading} offsetY='40px' transition={{ enter: { duration: 0.5 } }}>
+                <Heading
+                    as='h1'
+                    px={pagePaddingX}
+                    fontSize={{ base: '72px', md: '128px' }}
+                    pt={`calc(${navBarHeight} + 20px)`}
+                >
+                    The On-Chain<br />Trait Economy
+                </Heading>
             </SlideFade>
             <SlideFade in={showButton} offsetY='40px' transition={{ enter: { duration: 0.5 } }}>
                 <Button py='30px' px='30px' onClick={goToMarketplace}>

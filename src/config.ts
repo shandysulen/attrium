@@ -1,5 +1,4 @@
 import { getDefaultWallets, lightTheme } from '@rainbow-me/rainbowkit';
-import { RainbowKitProviderProps } from '@rainbow-me/rainbowkit/dist/components/RainbowKitProvider/RainbowKitProvider';
 import { configureChains, chain, createClient } from 'wagmi';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
@@ -25,8 +24,8 @@ export const wagmiClient = createClient({
     provider
 });
 
-export const rainbowKitProviderConfig: RainbowKitProviderProps = {
-    chains: [{ id: 1 }, { id: 137 }],
+export const rainbowKitProviderConfig = {
+    chains: [{ id: 80001 }],
     theme: lightTheme({
         accentColor: '#A87CFF',
         accentColorForeground: 'white',

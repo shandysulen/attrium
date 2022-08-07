@@ -1,0 +1,18 @@
+::selection {
+    background-color: black;
+}
+
+::-webkit-scrollbar {
+    width: 0.5em;
+}
+  
+*::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+}
+
+.selected-thumbnail {
+    box-shadow: 0px 0px 6px 5px #A87CFF;
+    width: 100px;
+    height: 100px;
+}

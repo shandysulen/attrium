@@ -1,14 +1,38 @@
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider, useDisclosure } from '@chakra-ui/react';
+import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import { AppProps } from 'next/app';
+import { WagmiConfig } from 'wagmi';
 
-import theme from '../theme'
-import { AppProps } from 'next/app'
+import { Footer } from '../sections/Footer';
+import { rainbowKitProviderConfig, wagmiClient } from '../config';
+import { SellModalContext } from '../hooks/useSellModal';
+import { Navbar } from '../sections/Navbar';
+import theme from '../theme';
 
-function MyApp({ Component, pageProps }: AppProps) {
+import '@rainbow-me/rainbowkit/styles.css';
+import '../global.css';
+import { SellModal } from '../sections/SellModal';
+import { Networks, NFTFetchConfiguration } from '@zoralabs/nft-hooks';
+
+function Attrium({ Component, pageProps }: AppProps) {
+  const { isOpen, onClose, onOpen } = useDisclosure();
+
   return (
-    <ChakraProvider theme={theme}>
-      <Component {...pageProps} />
-    </ChakraProvider>
-  )
+    <WagmiConfig client={wagmiClient}>
+      <RainbowKitProvider {...rainbowKitProviderConfig}>
+        <SellModalContext.Provider value={{ isOpen, onClose, onOpen }}>
+          <NFTFetchConfiguration networkId={Networks.MUMBAI}>
+            <ChakraProvider theme={theme}>
+              <Navbar />
+              <Component {...pageProps} />
+              <Footer />
+              {isOpen && <SellModal onClose={onClose} />}
+            </ChakraProvider>
+          </NFTFetchConfiguration>
+        </SellModalContext.Provider>
+      </RainbowKitProvider>
+    </WagmiConfig>
+  );
 }
 
-export default MyApp
+export default Attrium;

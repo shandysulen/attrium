@@ -8,6 +8,7 @@ import zoraAsksABI from '../abi/zora-asks-mumbai.json';
 import axios from 'axios';
 import { Result } from 'ethers/lib/utils';
 import { NFTCard, NFTCardProps } from '../components/NFTCard';
+import { ethers } from 'ethers';
 
 const NFTCardListing: React.FC<NFTCardProps> = (props) => {
     const { writeAsync } = useContractWrite({
@@ -19,11 +20,11 @@ const NFTCardListing: React.FC<NFTCardProps> = (props) => {
             ATTRIUM_NOUNS_BODY_ATTRIBUTE_ADDRESS,
             props.tokenID,
             MATIC_ADDRESS,
-            100,
+            +props.price,
             '0xc4DaD120712A92117Cc65D46514BE8B49ED846a1'
         ],
         overrides: {
-            value: +props.price * Math.pow(10, -18)
+            value: ethers.utils.parseUnits(props.price.toString(), "wei")
         }
     });
 

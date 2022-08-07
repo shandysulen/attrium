@@ -19,6 +19,7 @@ export const NFTCard: React.FC<NFTCardProps> = ({ name, image, description, pric
             className='buy-cursor'
             border='1px solid'
             borderColor='gray.200'
+            maxW='250px'
             rounded='4px'
             transition='0.2s all'
             _hover={interactive ? {

@@ -1,4 +1,4 @@
-import { Flex, HStack, Image, Link, Slide, SlideProps, Text } from '@chakra-ui/react';
+import { Box, Flex, HStack, Image, Link, Slide, SlideProps, Text } from '@chakra-ui/react';
 import { footerHeight, pagePaddingX } from '../constants';
 
 export const Footer: React.FC<SlideProps> = (props) => (
@@ -17,9 +17,11 @@ export const Footer: React.FC<SlideProps> = (props) => (
         >
             <HStack w='33%'>
                 <Text as='span'>Proudly built on</Text>
-                <Link href='https://zora.co' target='_blank'>
-                    <Image src='/zora.png' alt='Zora' w='60px' />
-                </Link>
+                <Box flexShrink={0}>
+                    <Link href='https://zora.co' target='_blank'>
+                        <Image src='/zora.png' alt='Zora' w='60px' />
+                    </Link>
+                </Box>
                 <Link href='https://polygon.technology' target='_blank'>
                     <Image src='/polygon.png' alt='Polygon' w='60px' />
                 </Link>
@@ -28,7 +30,7 @@ export const Footer: React.FC<SlideProps> = (props) => (
                 </Link>
             </HStack>
             <Flex justifyContent='center' w='33%'>
-                <Link href='https://ethglobal.com/events/metabolism' target='_blank'>
+                <Link href='https://github.com/shandysulen/attrium' target='_blank'>
                     <Image src='/github.svg' alt='GitHub' boxSize='24px' />
                 </Link>
             </Flex>

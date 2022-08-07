@@ -1427,6 +1427,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/canvas-confetti@^1.4.3":
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/@types/canvas-confetti/-/canvas-confetti-1.4.3.tgz#2540cda5353b1f7efd581f4950bfc48d165cca89"
+  integrity sha512-UwFPTsW1ZwVyo/ETp4hPSikSD7yl2V42E3VWBF5P/0+DHO4iajyceWv7hfNdZ2AX5tkZnuViiBWOqyCPohU2FQ==
+
 "@types/deepmerge@^2.2.0":
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@types/deepmerge/-/deepmerge-2.2.0.tgz#6f63896c217f3164782f52d858d9f3a927139f64"
@@ -1860,6 +1865,14 @@ axios@^0.21.0:
   dependencies:
     follow-redirects "^1.14.0"
 
+axios@^0.27.2:
+  version "0.27.2"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.27.2.tgz#207658cc8621606e586c85db4b41a750e756d972"
+  integrity sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ==
+  dependencies:
+    follow-redirects "^1.14.9"
+    form-data "^4.0.0"
+
 babel-plugin-macros@^2.6.1:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-macros/-/babel-plugin-macros-2.8.0.tgz#0f958a7cc6556b1e65344465d99111a1e5e10138"
@@ -2100,6 +2113,11 @@ caniuse-lite@^1.0.30001370:
   version "1.0.30001374"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001374.tgz#3dab138e3f5485ba2e74bd13eca7fe1037ce6f57"
   integrity sha512-mWvzatRx3w+j5wx/mpFN5v5twlPrabG8NqX2c6e45LCpymdoGqNvRkRutFUqpRTXKFQFNQJasvK0YT7suW6/Hw==
+
+canvas-confetti@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/canvas-confetti/-/canvas-confetti-1.5.1.tgz#bf5b8622ef3bcd347378a972fc4194a89cfe0c9b"
+  integrity sha512-Ncz+oZJP6OvY7ti4E1slxVlyAV/3g7H7oQtcCDXgwGgARxPnwYY9PW5Oe+I8uvspYNtuHviAdgA0LfcKFWJfpg==
 
 chalk@^2.0.0:
   version "2.4.2"
@@ -2704,7 +2722,7 @@ focus-lock@^0.11.2:
   dependencies:
     tslib "^2.0.3"
 
-follow-redirects@^1.14.0:
+follow-redirects@^1.14.0, follow-redirects@^1.14.9:
   version "1.15.1"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.1.tgz#0ca6a452306c9b276e4d3127483e29575e207ad5"
   integrity sha512-yLAMQs+k0b2m7cVxpS1VKJVvoz7SS9Td1zss3XRwXj+ZDH00RJgnuLx7E44wx02kQLrdM3aOOy+FpzS7+8OizA==
@@ -2720,6 +2738,15 @@ form-data@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/form-data/-/form-data-3.0.1.tgz#ebd53791b78356a99af9a300d4282c4d5eb9755f"
   integrity sha512-RHkBKtLWUVwd7SqRIvCZMEvAMoGUp0XU+seQiZejj0COz3RI3hWP4sCv3gZWWLjJTd7rGwcsF5eKZGii0r/hbg==
+  dependencies:
+    asynckit "^0.4.0"
+    combined-stream "^1.0.8"
+    mime-types "^2.1.12"
+
+form-data@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/form-data/-/form-data-4.0.0.tgz#93919daeaf361ee529584b9b31664dc12c9fa452"
+  integrity sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==
   dependencies:
     asynckit "^0.4.0"
     combined-stream "^1.0.8"

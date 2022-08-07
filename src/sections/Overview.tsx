@@ -1,10 +1,10 @@
 import {
     Box,
-    Button, Heading, HStack, Image, Link, SimpleGrid, Spacer, Stat as ChakraStat,
+    Button, Heading, HStack, Image, Link, SimpleGrid, SlideFade, Spacer, Stat as ChakraStat,
     StatGroup, StatLabel, StatNumber, Text, Tooltip, VStack
 } from '@chakra-ui/react';
 import React, { useCallback, useEffect, useState } from 'react';
-import { CONTRACT_ADDRESS, NOUNS_ADDRESS, pagePaddingX, ZORA_API_ENDPOINT } from '../constants';
+import { ATTRIUM_NOUNS_BODY_ATTRIBUTE_ADDRESS, NOUNS_ADDRESS, pagePaddingX, ZORA_API_ENDPOINT } from '../constants';
 import { MdContentCopy } from 'react-icons/md';
 import { BsCheckCircle } from 'react-icons/bs';
 import { ZDK } from '@zoralabs/zdk';
@@ -24,8 +24,10 @@ interface StatProps {
 
 const Stat: React.FC<StatProps> = ({ title, value }) => (
     <ChakraStat flex={'none'}>
-        <StatLabel>{title}</StatLabel>
-        <StatNumber>{value}</StatNumber>
+        <StatLabel fontSize='13px'>{title}</StatLabel>
+        <SlideFade in={true} offsetY='40px' transition={{ enter: { duration: 0.5 } }}>
+            <StatNumber>{value}</StatNumber>
+        </SlideFade>
     </ChakraStat>
 );
 
@@ -59,7 +61,7 @@ export const Overview = () => {
     }, []);
 
     const copyAddress = useCallback(() => {
-        navigator.clipboard.writeText(CONTRACT_ADDRESS);
+        navigator.clipboard.writeText(ATTRIUM_NOUNS_BODY_ATTRIBUTE_ADDRESS);
         setCopyTooltipLabel((
             <HStack>
                 <BsCheckCircle color='green' />
@@ -77,7 +79,7 @@ export const Overview = () => {
                     <Heading as='h1' size='lg' fontWeight='bold'>Nouns</Heading>
                     <HStack spacing='0'>
                         <Tooltip label={<PolyganScanTooltip />} hasArrow>
-                            <Link href='polygonscan.com/address/'>{CONTRACT_ADDRESS.slice(0, 6) + '...' + CONTRACT_ADDRESS.slice(-4)}</Link>
+                            <Link href='polygonscan.com/address/'>{ATTRIUM_NOUNS_BODY_ATTRIBUTE_ADDRESS.slice(0, 6) + '...' + ATTRIUM_NOUNS_BODY_ATTRIBUTE_ADDRESS.slice(-4)}</Link>
                         </Tooltip>
                         <Tooltip label={copyTooltipLabel} hasArrow>
                             <Button size='sm' py='10px' shadow='none' bg='none' _hover={{ bg: 'white', color: '#A87CFF' }} onClick={copyAddress}>
@@ -91,12 +93,12 @@ export const Overview = () => {
             <SimpleGrid columns={4} spacing={10} w='60%'>
                 <Stat title='Items' value={numItems} />
                 <Stat title='Owners' value={numOwners} />
-                <Stat title='Volume (ETH)' value={volume} />
-                <Stat title='Floor (ETH)' value={floor} />
+                <Stat title='Collection Volume (ETH)' value={volume} />
+                <Stat title='Collection Floor (ETH)' value={floor} />
                 <Stat title='Attribute Types' value={numAttributesTypes} />
                 <Stat title='Attribute Values' value={424} />
-                <Stat title='Volume (ETH)' value={'---'} />
-                <Stat title='Floor (ETH)' value={'---'} />
+                <Stat title='Attribute Volume (ETH)' value={'---'} />
+                <Stat title='Attribute Floor (ETH)' value={'---'} />
             </SimpleGrid>
         </HStack>
     );

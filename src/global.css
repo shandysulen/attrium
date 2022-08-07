@@ -16,3 +16,13 @@
     width: 100px;
     height: 100px;
 }
+
+.cursor-buy:hover {
+    width: 48px;
+    height: 48px;
+    background: url('/buy-cursor.png') no-repeat;
+}
+
+select option:invalid {
+    background-color: #A87CFF;
+}

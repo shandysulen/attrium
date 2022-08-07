@@ -5,8 +5,6 @@ import { About } from '../sections/About';
 import { useSellModal } from '../hooks/useSellModal';
 
 const Index = () => {
-  const { isOpen, onClose } = useSellModal();
-
   return (
     <>
       <Hero />

@@ -1,9 +1,17 @@
-import { Box, Button, Heading, HStack, Image, SlideFade, Spacer, StackProps, Text, VStack } from '@chakra-ui/react';
+import { Box, Button, chakra, Heading, HStack, Image, SlideFade, Spacer, StackProps, Text, VStack } from '@chakra-ui/react';
 import React, { useCallback, useEffect, useState } from 'react';
-import { footerHeight, navBarHeight } from '../constants';
+import { footerHeight, navBarHeight, pagePaddingX } from '../constants';
 import { BsArrowDownLeft, BsArrowDownRight } from 'react-icons/bs';
 import { useRouter } from 'next/router';
-import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { isValidMotionProp, motion } from 'framer-motion';
+
+const ChakraBox = chakra(motion.div, {
+    /**
+     * Allow motion props and the children prop to be forwarded.
+     * All other chakra props not matching the motion props will still be forwarded.
+     */
+    shouldForwardProp: (prop) => isValidMotionProp(prop) || prop === 'children',
+});
 
 export const LearnMoreDivider: React.FC<StackProps> = (props) => (
     <HStack w='100%' {...props}>
@@ -53,7 +61,7 @@ export const Hero: React.FC<StackProps> = (props) => {
     return (
         <VStack
             w='100%'
-            h={`calc(100vh - ${footerHeight})`}
+            minH={`calc(100vh - ${footerHeight})`}
             textAlign='center'
             justifyContent='center'
             backgroundImage='url("hero-bg.png")'
@@ -61,8 +69,8 @@ export const Hero: React.FC<StackProps> = (props) => {
             position='relative'
             {...props}
         >
-            <SlideFade in={showHeading} offsetY='40px' transition={{ enter: { duration: 0.5 } }}>
-                <Heading as='h1' fontSize='128px' pt={`calc(${navBarHeight} + 20px)`}>The On-Chain<br />Trait Economy</Heading>
+            <SlideFade in={showHeading} px={pagePaddingX} offsetY='40px' transition={{ enter: { duration: 0.5 } }}>
+                <Heading as='h1' fontSize={{ base: '72px', md: '128px' }} pt={`calc(${navBarHeight} + 20px)`}>The On-Chain<br />Trait Economy</Heading>
             </SlideFade>
             <SlideFade in={showButton} offsetY='40px' transition={{ enter: { duration: 0.5 } }}>
                 <Button py='30px' px='30px' onClick={goToMarketplace}>
@@ -76,7 +84,7 @@ export const Hero: React.FC<StackProps> = (props) => {
                 </Button>
             </SlideFade>
             <LearnMoreDivider pt='40px' />
-            <Spacer bg='linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%)' />
+            <Spacer bg='linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%)' minH='100px' />
         </VStack>
     );
 };

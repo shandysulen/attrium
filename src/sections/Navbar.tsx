@@ -5,31 +5,6 @@ import Link from 'next/link';
 import { navBarHeight, pagePaddingX } from '../constants';
 import { useSellModal } from '../hooks/useSellModal';
 
-const navItems: NavItemProps[] = [{
-  name: 'Sell',
-  route: '/sell'
-}, {
-  name: 'Marketplace',
-  route: '/marketplace'
-}];
-
-interface NavItemProps {
-  readonly name: string;
-  readonly route: string;
-}
-
-const NavItem: React.FC<NavItemProps> = ({ route, name }) => (
-  <ListItem>
-    <Link href={route}>
-      <a>
-        <Text as='span' _hover={{ color: '#A87CFF' }}>
-          {name}
-        </Text>
-      </a>
-    </Link>
-  </ListItem>
-);
-
 export const Navbar: React.FC<SlideProps> = (props) => {
   const { onOpen } = useSellModal();
 
@@ -50,11 +25,13 @@ export const Navbar: React.FC<SlideProps> = (props) => {
         alignItems='center'
         shadow='lg'
       >
-        <Link href='/'>
-          <a>
-            <Image src='/logo.png' alt='Attrium Logo' w='100px' />
-          </a>
-        </Link>
+        <Box flexShrink={0}>
+          <Link href='/'>
+            <a>
+              <Image src='/logo.png' alt='Attrium Logo' w='100px' />
+            </a>
+          </Link>
+        </Box>
         <HStack spacing='40px'>
           <UnorderedList display='flex' alignItems='center' gap='40px' listStyleType='none'>
             <ListItem>
@@ -73,7 +50,7 @@ export const Navbar: React.FC<SlideProps> = (props) => {
             </ListItem>
           </UnorderedList>
           <Box>
-            <ConnectButton showBalance={false} />
+            <ConnectButton />
           </Box>
         </HStack>
       </Flex>

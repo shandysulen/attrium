@@ -1,7 +1,8 @@
-import { Box, Image, SlideFade, SlideFadeProps, Text, TextProps, VStack } from '@chakra-ui/react';
+import { Box, Button, Image, SlideFade, SlideFadeProps, Text, TextProps, VStack } from '@chakra-ui/react';
 import { useInView } from 'framer-motion';
-import React, { useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { pagePaddingX } from '../constants';
+import { GoLinkExternal } from 'react-icons/go';
 
 type HighlightColor = 'peach' | 'pink' | 'purple';
 
@@ -35,8 +36,10 @@ const IntersectionSlideFade: React.FC<SlideFadeProps> = ({ children }) => {
 };
 
 export const About = () => {
+    const goToGitHub = useCallback(() => window.open('https://github.com/shandysulen/attrium#readme'), []);
+
     return (
-        <VStack py='40px'>
+        <VStack py='40px' px={pagePaddingX} textAlign='center' lineHeight={1} spacing='20px'>
             <IntersectionSlideFade>
                 <Text fontSize='4xl'>a <Highlight color='peach'>token</Highlight> is a <Highlight color='pink'>representation</Highlight> of <Highlight color='purple'>something</Highlight></Text>
             </IntersectionSlideFade>
@@ -53,12 +56,27 @@ export const About = () => {
                 <Text fontSize='4xl'><Highlight color='peach'>identities</Highlight> currently <Highlight color='pink'>conform</Highlight> to <Highlight color='purple'>tokens</Highlight> <Underline>instead of the other way around</Underline></Text>
             </IntersectionSlideFade>
             <Box py='20px' px={pagePaddingX} w='100%'>
-                <hr style={{ borderColor: '#E2E8F0', width: '100%' }} />
+                <IntersectionSlideFade>
+                    <hr style={{ borderColor: '#E2E8F0', width: '100%' }} />
+                </IntersectionSlideFade>
             </Box>
-            <Text fontSize='4xl'><Image src='/logo.png' alt='Attrium Logo' display='inline' w='100px' verticalAlign='middle' /> is an economy where compatible tokens conform to identities</Text>
-            <Text fontSize='4xl'>sell metadata traits you don't want</Text>
-            <Text fontSize='4xl'>buy metadata traits you do</Text>
-            <Text fontSize='4xl'>compose your identity</Text>
+            <IntersectionSlideFade>
+                <Text fontSize='4xl'><Image src='/logo.png' alt='Attrium Logo' display='inline' w='100px' verticalAlign='middle' /> is an economy where compatible tokens conform to identities</Text>
+            </IntersectionSlideFade>
+            <IntersectionSlideFade>
+                <Text fontSize='4xl'>sell metadata traits you don't want</Text>
+            </IntersectionSlideFade>
+            <IntersectionSlideFade>
+                <Text fontSize='4xl'>buy metadata traits you do</Text>
+            </IntersectionSlideFade>
+            <IntersectionSlideFade>
+                <Text fontSize='4xl'>compose your identity</Text>
+            </IntersectionSlideFade>
+            <IntersectionSlideFade>
+                <Box pt='20px'>
+                    <Button onClick={goToGitHub} leftIcon={<GoLinkExternal />}>DIG INTO THE DEETS</Button>
+                </Box>
+            </IntersectionSlideFade>
         </VStack>
     );
 };

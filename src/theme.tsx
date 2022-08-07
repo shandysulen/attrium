@@ -18,6 +18,7 @@ const theme = extendTheme({
     },
     Button: {
       baseStyle: {
+        bg: 'white',
         rounded: 'full',
         shadow: 'dark-lg',
         py: '25px',
@@ -123,7 +124,7 @@ const theme = extendTheme({
                0 -2px 6px -1px #6666661a, 0 -1px 4px -1px #6666661a`,
     outline: '0 0 0 3px rgb(80, 200, 120, 0.6)', // emerald focus color
     glow: '0px 0px 20px 5px #50C878;',
-    'glow-sm': '0px 0px 6px 5px #50C878;',
+    'glow-sm': '0px 0px 6px 5px #A87CFF;',
   },
 });
 

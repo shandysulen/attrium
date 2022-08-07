@@ -1,6 +1,6 @@
 import { Flex, HStack, Select, SlideFade, Spinner, StackProps, Text, VStack } from '@chakra-ui/react';
 import { ZDK } from '@zoralabs/zdk';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useContractRead, useContractWrite } from 'wagmi';
 import { ATTRIUM_NOUNS_BODY_ATTRIBUTE_ADDRESS, MATIC_ADDRESS, NOUNS_ADDRESS, pagePaddingX, ZORA_API_ENDPOINT, ZORA_ASKS_MUMBAI_ADDRESS } from '../constants';
 import bodyAttributeABI from '../abi/attrium-nouns-body-attribute.json';
@@ -16,23 +16,29 @@ const NFTCardListing: React.FC<NFTCardProps> = (props) => {
         functionName: 'fillAsk',
         mode: 'recklesslyUnprepared',
         args: [
-            props.price,
             ATTRIUM_NOUNS_BODY_ATTRIBUTE_ADDRESS,
             props.tokenID,
             MATIC_ADDRESS,
-            100
-        ]
+            100,
+            '0xc4DaD120712A92117Cc65D46514BE8B49ED846a1'
+        ],
+        overrides: {
+            value: +props.price * Math.pow(10, -18)
+        }
     });
 
-    const onClick = useCallback(() => writeAsync(), [writeAsync]);
+    const onClick = () => writeAsync();
 
     return (
         <NFTCard {...props} cursor='buy-cursor.png' onClick={onClick} />
     );
 };
 
+type Sort = 'price-asc' | 'price-desc';
+
 export const Listings: React.FC<StackProps> = (props) => {
     const [listings, setListings] = useState<NFTCardProps[]>([]);
+    const [sort, setSort] = useState<Sort>('price-asc');
     const [attributeNames, setAttributeNames] = useState<string[]>([]);
     const { data: baseURI, isFetching: isFetchingBaseURI } = useContractRead({
         addressOrName: ATTRIUM_NOUNS_BODY_ATTRIBUTE_ADDRESS,
@@ -73,7 +79,7 @@ export const Listings: React.FC<StackProps> = (props) => {
         const parsedTotalSupply = parseInt(totalSupply._hex, 16);
         if (baseURI && parsedTotalSupply && ask1) {
             const fetchMetadata = async () => {
-                const fetchedListings = [];
+                const fetchedListings: NFTCardProps[] = [];
 
                 for (let i = 1; i <= (parsedTotalSupply as unknown as number); i++) {
                     // Grab metadata
@@ -83,8 +89,17 @@ export const Listings: React.FC<StackProps> = (props) => {
                     // Compose image URL
                     const imageUrl = 'https://ipfs.io/ipfs/' + metadata.image.slice(7);
 
+                    // Get price
+                    const price = parseInt(asks[i]?.askPrice._hex, 16);
+
                     // Search for listing
-                    fetchedListings.push({ ...metadata, image: imageUrl, price: parseInt(asks[i]?.askPrice._hex, 16), tokenID: i });
+                    fetchedListings.push({
+                        ...metadata,
+                        image: imageUrl,
+                        price,
+                        tokenID: i,
+                        interactive: !!price
+                    });
                 }
 
                 setListings(fetchedListings);
@@ -116,6 +131,8 @@ export const Listings: React.FC<StackProps> = (props) => {
         [isFetchingBaseURI, isFetchingTotalSupply, isFetchingAsk1, isFetchingAsk2, isFetchingAsk3]
     );
 
+    const listingSort = (a: NFTCardProps, b: NFTCardProps) => (sort === 'price-asc' ? 1 : -1) * +a.price - +b.price;
+
     return (
         <VStack alignItems='flex-start' w='100%' px={pagePaddingX} {...props}>
             <HStack w='100%' justifyContent='space-between' pr='16px'>
@@ -132,9 +149,9 @@ export const Listings: React.FC<StackProps> = (props) => {
                     </VStack>
                     <VStack alignItems='flex-start' spacing='0'>
                         <Text as='span' fontWeight='bold'>Sort</Text>
-                        <Select w='200px' ml='16px'>
-                            <option value='Price Ascending'>Price Ascending</option>
-                            <option value='Price Descending'>Price Descending</option>
+                        <Select value={sort} onChange={(e) => setSort(e.target.value as Sort)} w='200px' ml='16px'>
+                            <option value='price-asc'>Price Ascending</option>
+                            <option value='price-desc'>Price Descending</option>
                         </Select>
                     </VStack>
                 </HStack>
@@ -147,7 +164,7 @@ export const Listings: React.FC<StackProps> = (props) => {
             ) : (
                 <SlideFade in={true} offsetY='40px' transition={{ enter: { duration: 0.5 } }}>
                     <Flex wrap='wrap' mt='40px' gap='40px'>
-                        {listings.map(listing => (
+                        {[...listings.filter(listing => listing.price).sort(listingSort), ...listings.filter(listing => !listing.price)].map(listing => (
                             <NFTCardListing key={listing.name} {...listing} />
                         ))}
                     </Flex>

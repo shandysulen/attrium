@@ -27,7 +27,7 @@ export const NFTCard: React.FC<NFTCardProps> = ({ name, image, description, pric
                 opacity: 0.9,
                 cursor: `url(${cursor}) 48 48, auto`
             } : {}}
-            onClick={interactive && onClick}
+            onClick={interactive ? onClick : undefined}
             shadow={selected ? 'glow-sm' : undefined}
         >
             <Image src={image} alt='name' boxSize='200px' />

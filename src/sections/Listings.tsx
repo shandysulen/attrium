@@ -132,7 +132,7 @@ export const Listings: React.FC<StackProps> = (props) => {
         [isFetchingBaseURI, isFetchingTotalSupply, isFetchingAsk1, isFetchingAsk2, isFetchingAsk3]
     );
 
-    const listingSort = (a: NFTCardProps, b: NFTCardProps) => (sort === 'price-asc' ? 1 : -1) * +a.price - +b.price;
+    const listingSort = (a: NFTCardProps, b: NFTCardProps) => (sort === 'price-asc' ? 1 : -1) * (+a.price - +b.price);
 
     return (
         <VStack alignItems='flex-start' w='100%' px={pagePaddingX} {...props}>

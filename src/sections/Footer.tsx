@@ -16,18 +16,22 @@ export const Footer: React.FC<SlideProps> = (props) => (
             shadow='md-all'
         >
             <HStack w='33%'>
-                <Text as='span'>Proudly built on</Text>
+                <Text as='span' fontSize='12px'>Proudly built on</Text>
                 <Box flexShrink={0}>
                     <Link href='https://zora.co' target='_blank'>
                         <Image src='/zora.png' alt='Zora' w='60px' />
                     </Link>
                 </Box>
-                <Link href='https://polygon.technology' target='_blank'>
-                    <Image src='/polygon.png' alt='Polygon' w='60px' />
-                </Link>
-                <Link href='https://nft.storage' target='_blank'>
-                    <Image src='/nft-storage.png' alt='NFT Storage' w='40px' />
-                </Link>
+                <Box flexShrink={0}>
+                    <Link href='https://polygon.technology' target='_blank'>
+                        <Image src='/polygon.png' alt='Polygon' w='60px' />
+                    </Link>
+                </Box>
+                <Box flexShrink={0}>
+                    <Link href='https://nft.storage' target='_blank'>
+                        <Image src='/nft-storage.png' alt='NFT Storage' w='40px' />
+                    </Link>
+                </Box>
             </HStack>
             <Flex justifyContent='center' w='33%'>
                 <Link href='https://github.com/shandysulen/attrium' target='_blank'>

@@ -69,47 +69,47 @@ const NFTSelection: React.FC<NFTSelectionProps> = ({
         functionName: 'baseURI',
     });
 
-    const { data: tokenBalance, isFetching: isFetchingTokenBalance } = useContractRead({
+    const { data: tokenId, isFetching: isFetchingTokenId } = useContractRead({
         addressOrName: ATTRIUM_NOUNS_BODY_ATTRIBUTE_ADDRESS,
         contractInterface: bodyAttributeABI,
-        functionName: 'balanceOf',
-        args: address
+        functionName: 'tokenOfOwnerByIndex',
+        args: [address, 0]
     });
 
     useEffect(() => {
-        if (tokenBalance) {
-            setBalance(parseInt(tokenBalance._hex, 16));
+        if (tokenId) {
+            setBalance(1);
         }
-    }, [tokenBalance]);
+    }, [tokenId]);
 
     const isFetching = useMemo(() =>
-        isFetchingTokenBalance || isFetchingBaseURI,
-        [isFetchingTokenBalance, isFetchingBaseURI]
+        isFetchingTokenId || isFetchingBaseURI,
+        [isFetchingTokenId, isFetchingBaseURI]
     );
 
     useEffect(() => {
-        if (baseURI && balance) {
+        if (baseURI && balance && tokenId) {
             const fetchMetadata = async () => {
                 const fetchedTokens = [];
 
-                for (let i = 1; i <= balance; i++) {
-                    // Grab metadata
-                    const url = 'https://ipfs.io/ipfs/' + baseURI.slice(7) + i + '.json';
-                    const metadata = (await axios.get(url)).data;
+                // for (let i = 1; i <= balance; i++) {
+                // Grab metadata
+                const url = 'https://ipfs.io/ipfs/' + baseURI.slice(7) + parseInt(tokenId._hex, 16) + '.json';
+                const metadata = (await axios.get(url)).data;
 
-                    // Compose image URL
-                    const imageUrl = 'https://ipfs.io/ipfs/' + metadata.image.slice(7);
+                // Compose image URL
+                const imageUrl = 'https://ipfs.io/ipfs/' + metadata.image.slice(7);
 
-                    // Search for listing
-                    fetchedTokens.push({ ...metadata, image: imageUrl, tokenID: i });
-                }
+                // Search for listing
+                fetchedTokens.push({ ...metadata, image: imageUrl, tokenID: tokenId });
+                // }
 
                 setTokens(fetchedTokens);
             };
 
             fetchMetadata();
         }
-    }, [baseURI, balance]);
+    }, [baseURI, balance, tokenId]);
 
     let content: JSX.Element = <></>;
     if (isFetching) {

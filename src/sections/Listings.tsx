@@ -77,36 +77,38 @@ export const Listings: React.FC<StackProps> = (props) => {
     };
 
     useEffect(() => {
-        const parsedTotalSupply = parseInt(totalSupply._hex, 16);
-        if (baseURI && parsedTotalSupply && ask1) {
-            const fetchMetadata = async () => {
-                const fetchedListings: NFTCardProps[] = [];
+        if (totalSupply) {
+            const parsedTotalSupply = parseInt(totalSupply._hex, 16);
+            if (baseURI && parsedTotalSupply && ask1) {
+                const fetchMetadata = async () => {
+                    const fetchedListings: NFTCardProps[] = [];
 
-                for (let i = 1; i <= (parsedTotalSupply as unknown as number); i++) {
-                    // Grab metadata
-                    const url = 'https://ipfs.io/ipfs/' + baseURI.slice(7) + i + '.json';
-                    const metadata = (await axios.get(url)).data;
+                    for (let i = 1; i <= (parsedTotalSupply as unknown as number); i++) {
+                        // Grab metadata
+                        const url = 'https://ipfs.io/ipfs/' + baseURI.slice(7) + i + '.json';
+                        const metadata = (await axios.get(url)).data;
 
-                    // Compose image URL
-                    const imageUrl = 'https://ipfs.io/ipfs/' + metadata.image.slice(7);
+                        // Compose image URL
+                        const imageUrl = 'https://ipfs.io/ipfs/' + metadata.image.slice(7);
 
-                    // Get price
-                    const price = parseInt(asks[i]?.askPrice._hex, 16);
+                        // Get price
+                        const price = parseInt(asks[i]?.askPrice._hex, 16);
 
-                    // Search for listing
-                    fetchedListings.push({
-                        ...metadata,
-                        image: imageUrl,
-                        price,
-                        tokenID: i,
-                        interactive: !!price
-                    });
-                }
+                        // Search for listing
+                        fetchedListings.push({
+                            ...metadata,
+                            image: imageUrl,
+                            price,
+                            tokenID: i,
+                            interactive: !!price
+                        });
+                    }
 
-                setListings(fetchedListings);
-            };
+                    setListings(fetchedListings);
+                };
 
-            fetchMetadata();
+                fetchMetadata();
+            }
         }
     }, [baseURI, totalSupply]);
 
